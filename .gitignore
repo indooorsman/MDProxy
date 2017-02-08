@@ -1,0 +1,9 @@
+.idea/
+.DS_Store
+*.log
+node_modules
+backend/config.js
+.nwjs.config.json
+nwjs-sdk
+app.nw
+patch*.zip
