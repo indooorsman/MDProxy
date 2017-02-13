@@ -1,0 +1,227 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: #eee;
+  font-family: "Microsoft YaHei", "Roboto", "Helvetica", "Arial", sans-serif;
+}
+
+pre {
+  font-family: "Microsoft YaHei", "Roboto", "Helvetica", "Arial", sans-serif;
+}
+
+.page-content {
+  padding: 16px;
+}
+
+.mdl-card {
+  min-height: 50px;
+  margin-bottom: 16px;
+}
+
+.mdl-card__supporting-text {
+  word-break: break-all;
+  word-wrap: break-word;
+}
+
+#startBtn {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  z-index: 9;
+}
+
+header {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+
+main {
+  padding-top: 56px;
+}
+
+.card-actions .btn {
+  margin: 0 0 0 10px;
+}
+
+main, .page-content {
+  height: 100%;
+  overflow: hidden;
+}
+
+.home-content {
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-content .section-log {
+  flex: 1;
+  overflow: hidden;
+}
+
+.home-content .section-config {
+  flex: 1;
+  overflow: auto;
+  padding-bottom: 67px;
+}
+
+.log-content {
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+  flex-direction: column;
+}
+
+.log-content .logs {
+  background: #000;
+  color: #fff;
+  padding: 8px 8px 67px 8px;
+  flex: 1;
+  overflow: auto;
+}
+
+.log-content .logs p {
+  line-height: normal;
+  margin-bottom: 8px;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+
+.log-item.local {
+  color: #25A501;
+}
+
+.log-item span {
+  display: block;
+}
+
+.local-file {
+  display: block;
+  padding-left: 1em;
+  /*font-size: 12px;*/
+  color: lightseagreen;
+}
+
+.log-options {
+  float: right;
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+.mdl-dialog {
+  width: 380px;
+}
+
+.mdl-dialog.large {
+  width: 80%;
+}
+
+.mdl-card__supporting-text {
+  color: #666;
+}
+
+.mdl-textfield__input {
+  color: #333;
+}
+
+.list-editor {
+  position: relative;
+}
+
+.list-editor .mdl-button--fab {
+  position: absolute;
+  top: -25px;
+  right: 20px;
+}
+
+.list-editor .action-remove {
+  cursor: pointer;
+  -webkit-user-select: none;
+  margin-left: 8px;
+}
+
+.input-with-x {
+  padding: 2px;
+  display: flex;
+  align-items: center;
+}
+
+.input-with-x input {
+  flex: 1;
+}
+
+.input-with-x i {
+  font-size: 18px;
+}
+
+.mdl-card__title {
+  padding-bottom: 0;
+}
+
+.mdl-card__supporting-text ul {
+  margin: 0;
+}
+
+.file-matches-list p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.file-matches-list p.url {
+  color: #333;
+}
+
+.file-matches-list p.local {
+  font-size: 11px;
+  color: #666;
+}
+
+.file-matches-list .disabled {
+  opacity: 0.3;
+}
+
+.arrow {
+  font-family: "Helvetica", "Arial", sans-serif;
+  font-size: 11px;
+  color: #ccc;
+}
+
+.matches-input-group {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.matches-input-group > input {
+  flex: 1
+}
+
+input[type=text] {
+  outline: 0 none;
+}
+
+.update-dailog p {
+  line-height: 1.8;
+  margin: 0;
+}
+
+.update-dailog pre {
+  margin: 0;
+  white-space: pre-wrap;
+}

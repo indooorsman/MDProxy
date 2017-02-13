@@ -1,0 +1,20 @@
+<div class="log-content">
+  <p>代理服务已经启动，地址：http://127.0.0.1:{{proxy.port}} 或 http://{{proxy.address}}:{{proxy.port}}</p>
+  <p>日志：
+    <span class="log-options">
+      <span class="log-option">
+        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
+          <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" v-model="autoscroll">
+          <span class="mdl-checkbox__label">自动滚动</span>
+        </label>
+      </span>
+    </span>
+
+  </p>
+  <div class="logs">
+    <p class="log-item" :class="{local: log.local}" v-for="(log, index) in logs" :key="log.id">
+      <span @click="toggleExpand(log)">{{log.id}}. {{log.remote}}</span>
+      <span class="local-file" v-show="log.local && log.expand">↪ {{log.local}}</span>
+    </p>
+  </div>
+</div>

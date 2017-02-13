@@ -1,0 +1,191 @@
+<div class="home-content">
+  <h5>你好，{{username}}
+    <button @click="logout" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+      退出
+    </button>
+  </h5>
+  <p v-show="!proxyStarted">当前配置：</p>
+  <section class="section-config" v-show="!proxyStarted">
+    <div class="mdl-card mdl-textfield--full-width mdl-shadow--2dp">
+      <div class="mdl-card__title">
+        文件匹配
+      </div>
+      <div class="mdl-card__supporting-text">
+        <ul class="file-matches-list">
+          <li v-for="(v, k) in proxyConfig.fileMatches"
+              :title="v.startsWith('!')?'已禁用':''"
+              :class="{disabled: v.startsWith('!')}">
+            <p class="url">
+              {{k}}
+            </p>
+            <p class="local">
+              <span class="arrow">=></span> {{v}}
+            </p>
+          </li>
+        </ul>
+      </div>
+      <div class="mdl-card__actions mdl-card--border card-actions">
+        <button @click="editMatches('fileMatchesEditor')" class="mdl-button mdl-js-button mdl-js-ripple-effect">修改
+        </button>
+        <matches-editor @save="saveMatches($event, 'fileMatches')" ref="fileMatchesEditor"
+                        :data-list="proxyConfig.fileMatches"></matches-editor>
+      </div>
+    </div>
+    <div class="mdl-card mdl-textfield--full-width mdl-shadow--2dp">
+      <div class="mdl-card__title">
+        目录匹配
+      </div>
+      <div class="mdl-card__supporting-text">
+        <ul class="file-matches-list">
+          <li v-for="(v, k) in proxyConfig.dirMatches"
+              :class="{disabled: v.startsWith('!')}"
+              :title="v.startsWith('!')?'已禁用':''">
+            <p class="url">
+              {{k}}
+            </p>
+            <p class="local">
+              <span class="arrow">=></span> {{v}}
+            </p>
+          </li>
+        </ul>
+      </div>
+      <div class="mdl-card__actions mdl-card--border card-actions">
+        <button @click="editMatches('dirMatchesEditor')" class="mdl-button mdl-js-button mdl-js-ripple-effect">修改
+        </button>
+        <matches-editor @save="saveMatches($event, 'dirMatches')" ref="dirMatchesEditor"
+                        :data-list="proxyConfig.dirMatches"
+                        source-placeholder="远程路径"
+                        target-placeholder="本机路径"></matches-editor>
+      </div>
+    </div>
+    <div class="mdl-card mdl-textfield--full-width mdl-shadow--2dp">
+      <div class="mdl-card__title">
+        反向代理
+      </div>
+      <div class="mdl-card__supporting-text">
+        <ul class="file-matches-list">
+          <li v-for="(v, k) in proxyConfig.reverses"
+              :class="{disabled: v.startsWith('!')}"
+              :title="v.startsWith('!')?'已禁用':''">
+            <p class="url">
+              {{k}}
+            </p>
+            <p class="local">
+              <span class="arrow">=></span> {{v}}
+            </p>
+          </li>
+        </ul>
+      </div>
+      <div class="mdl-card__actions mdl-card--border card-actions">
+        <button @click="editMatches('reversesEditor')" class="mdl-button mdl-js-button mdl-js-ripple-effect">修改
+        </button>
+        <matches-editor @save="saveMatches($event, 'reverses')" ref="reversesEditor"
+                        :data-list="proxyConfig.reverses"
+                        source-placeholder="路径"
+                        target-placeholder="主机名:端口"></matches-editor>
+      </div>
+    </div>
+    <!--
+    <div class="mdl-card mdl-textfield--full-width mdl-shadow--2dp">
+      <div class="mdl-card__title">
+        本机B端静态根路径
+      </div>
+      <div class="mdl-card__supporting-text">{{proxyConfig.tobPath}}</div>
+      <div class="mdl-card__actions mdl-card--border card-actions">
+        <button @click="choosePath('tobPath')" class="mdl-button mdl-js-button mdl-js-ripple-effect">修改</button>
+      </div>
+    </div>
+    <div class="mdl-card mdl-textfield--full-width mdl-shadow--2dp">
+      <div class="mdl-card__title">
+        本机C端静态根路径
+      </div>
+      <div class="mdl-card__supporting-text">{{proxyConfig.tocPath}}</div>
+      <div class="mdl-card__actions mdl-card--border card-actions">
+        <button @click="choosePath('tocPath')" class="mdl-button mdl-js-button mdl-js-ripple-effect">修改</button>
+      </div>
+    </div>
+    <div class="mdl-card mdl-textfield--full-width mdl-shadow--2dp">
+      <div class="mdl-card__title">
+        B端主机列表
+      </div>
+      <div class="mdl-card__supporting-text">
+        <ul>
+          <li v-for="host in proxyConfig.hosts.tob">{{host}}</li>
+        </ul>
+      </div>
+      <div class="mdl-card__actions mdl-card--border card-actions">
+        <button @click="modifyList('tobHostsEditor')" class="mdl-button mdl-js-button mdl-js-ripple-effect">修改
+        </button>
+        <list-editor @save="saveList($event, 'tob')" ref="tobHostsEditor" :data-list="proxyConfig.hosts.tob"></list-editor>
+      </div>
+    </div>
+    <div class="mdl-card mdl-textfield--full-width mdl-shadow--2dp">
+      <div class="mdl-card__title">
+        C端主机列表
+      </div>
+      <div class="mdl-card__supporting-text">
+        <ul>
+          <li v-for="host in proxyConfig.hosts.toc">{{host}}</li>
+        </ul>
+      </div>
+      <div class="mdl-card__actions mdl-card--border card-actions">
+        <button @click="modifyList('tocHostsEditor')" class="mdl-button mdl-js-button mdl-js-ripple-effect">修改
+        </button>
+        <list-editor @save="saveList($event, 'toc')" ref="tocHostsEditor" :data-list="proxyConfig.hosts.toc"></list-editor>
+      </div>
+    </div>
+    -->
+    <div class="mdl-card mdl-textfield--full-width mdl-shadow--2dp">
+      <div class="mdl-card__title">
+        代理服务端口
+      </div>
+      <div class="mdl-card__supporting-text">{{proxyConfig.port}}</div>
+      <div class="mdl-card__actions mdl-card--border card-actions">
+        <button @click="modifyPort" class="mdl-button mdl-js-button mdl-js-ripple-effect">修改</button>
+        <dialog class="mdl-dialog" id="portDialog">
+          <div class="mdl-dialog__content">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input min="8000" max="65533" v-model="portToSave" class="mdl-textfield__input" type="number"
+                     placeholder="大于8000，小于65533" id="portinput">
+              <label class="mdl-textfield__label" for="portinput">请输入端口号</label>
+            </div>
+          </div>
+          <div class="mdl-dialog__actions">
+            <button @click="savePort"
+                    class="mdl-button mdl-button--raised mdl-button--primary mdl-js-button mdl-js-ripple-effect">
+              保存
+            </button>
+            <button @click="closePortDialog" class="mdl-button mdl-js-button mdl-js-ripple-effect">取消</button>
+          </div>
+        </dialog>
+      </div>
+    </div>
+
+
+  </section>
+  <section class="section-log" v-show="proxyStarted">
+    <log-component :logs="logs" :proxy="proxyDetail"></log-component>
+  </section>
+
+
+  <button @click="start" id="startBtn"
+          class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--fab mdl-button--colored">
+    <i class="material-icons">{{proxyStarted?'close':'power_settings_new'}}</i>
+  </button>
+
+  <span class="mdl-tooltip mdl-tooltip--left" for="startBtn">{{proxyStarted?'停止代理服务':'启动代理服务'}}</span>
+
+
+  <ui-dialog ref="updateDialog"
+             title="发现新版本"
+             noCancel="true"
+             :confirmText="updateBtnText"
+             @confirm="update">
+    <div class="update-dailog">
+      <p>当前版本：{{version.current.name}}({{version.current.code}})</p>
+      <p>最新版本：{{version.latest.name}}({{version.latest.code}})</p>
+      <p>Change log：</p>
+      <pre>{{version.latest.changelog}}</pre>
+    </div>
+  </ui-dialog>
+</div>

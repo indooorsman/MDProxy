@@ -1,0 +1,20 @@
+<dialog class="mdl-dialog list-editor">
+  <div class="mdl-dialog__content">
+    <div v-for="item in clonedList" class="input-with-x mdl-textfield mdl-js-textfield">
+      <input class="mdl-textfield__input" placeholder="输入主机名:端口,如192.168.1.1:8080" type="text" v-model="item.value">
+      <i @click="remove(item.index)" class="material-icons action-remove">close</i>
+    </div>
+  </div>
+  <div class="mdl-dialog__actions">
+    <button @click="save" class="mdl-button mdl-button--raised mdl-button--primary mdl-js-button mdl-js-ripple-effect">
+      保存
+    </button>
+    <button @click="close" class="mdl-button mdl-js-button mdl-js-ripple-effect">取消</button>
+  </div>
+
+  <button @click="add" :id="'addBtn'+_uid" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--fab mdl-button--colored mdl-button--primary">
+    <i class="material-icons">add</i>
+  </button>
+
+  <span class="mdl-tooltip mdl-tooltip--left" :for="'addBtn'+_uid">添加一条</span>
+</dialog>

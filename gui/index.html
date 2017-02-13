@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>盈科旅游前端代理工具</title>
+  <link rel="stylesheet" href="lib/mdl/font/font.css">
+  <link rel="stylesheet" href="lib/mdl/material.min.css">
+  <link rel="stylesheet" href="css/index.css">
+  <script src="lib/vue.min.js"></script>
+  <script src="lib/vue-router.min.js"></script>
+</head>
+<body>
+<div id="app">
+
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer
+            mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+      <div style="-webkit-app-region: drag;cursor: move;-webkit-user-select: none;" class="mdl-layout__drawer-button">
+        <i class="material-icons">build</i>
+      </div>
+      <div class="mdl-layout__header-row">
+        <!-- Title -->
+        <span class="mdl-layout-title" style="-webkit-app-region: drag;cursor: move;-webkit-user-select: none;height: 56px;line-height: 56px;">{{title}}</span>
+        <!-- Add spacer, to align navigation to the right -->
+        <div class="mdl-layout-spacer" style="-webkit-app-region: drag;cursor: move;-webkit-user-select: none;height: 56px;"></div>
+        <!-- Navigation. We hide it in small screens. -->
+        <!--<nav class="mdl-navigation mdl-layout&#45;&#45;large-screen-only">
+          <a class="mdl-navigation__link" href="">Link</a>
+          <a class="mdl-navigation__link" href="">Link</a>
+          <a class="mdl-navigation__link" href="">Link</a>
+          <a class="mdl-navigation__link" href="">Link</a>
+        </nav>-->
+        <button @click="hideApp" title="隐藏"
+                class="mdl-button mdl-js-button mdl-button--icon">
+          _
+        </button>
+        <button @click="closeApp" title="关闭"
+                class="mdl-button mdl-js-button mdl-button--icon">
+          <i class="material-icons">close</i>
+        </button>
+      </div>
+    </header>
+
+    <main class="mdl-layout__content">
+      <div class="page-content">
+
+        <router-view></router-view>
+
+      </div>
+    </main>
+  </div>
+
+
+</div>
+
+<div id="message" class="mdl-js-snackbar mdl-snackbar">
+  <div class="mdl-snackbar__text"></div>
+  <button class="mdl-snackbar__action" type="button"></button>
+</div>
+<input type="file" nwdirectory id="directoryChooser" style="width: 1px;height: 1px;position: absolute;top:-9999px;"/>
+
+<script src="lib/jquery-3.1.1.min.js"></script>
+<script src="lib/mdl/material.min.js"></script>
+<script src="js/index.js"></script>
+</body>
+</html>

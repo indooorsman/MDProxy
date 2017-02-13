@@ -1,0 +1,27 @@
+<dialog class="mdl-dialog list-editor large">
+  <div class="mdl-dialog__content">
+    <div v-for="(item, index) in clonedList" class="matches-input-group input-with-x mdl-textfield mdl-js-textfield">
+      <input class="mdl-textfield__input" :placeholder="placeholder1" type="text" v-model.trim="item.url">
+      <span class="arrow">&nbsp;&nbsp;=>&nbsp;&nbsp;</span>
+      <input class="mdl-textfield__input" type="text" :placeholder="placeholder2"
+             v-model.trim="item.local">
+      <label :title="item.enable?'已启用':'已禁用'" style="width: auto;margin: 0 10px;" class="mdl-switch mdl-js-switch mdl-js-ripple-effect" :for="`switch-${_uid}-${index}`">
+        <input type="checkbox" :id="`switch-${_uid}-${index}`" class="mdl-switch__input" v-model="item.enable">
+        <span class="mdl-switch__label"></span>
+      </label>
+      <i @click="remove(item)" class="material-icons action-remove">close</i>
+    </div>
+  </div>
+  <div class="mdl-dialog__actions">
+    <button @click="save" class="mdl-button mdl-button--raised mdl-button--primary mdl-js-button mdl-js-ripple-effect">
+      保存
+    </button>
+    <button @click="close" class="mdl-button mdl-js-button mdl-js-ripple-effect">取消</button>
+  </div>
+
+  <button @click="add" :id="'addBtn'+_uid" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--fab mdl-button--colored mdl-button--primary">
+    <i class="material-icons">add</i>
+  </button>
+
+  <span class="mdl-tooltip mdl-tooltip--left" :for="'addBtn'+_uid">添加一条</span>
+</dialog>
