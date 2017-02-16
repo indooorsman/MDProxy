@@ -21,6 +21,8 @@ require('../dialog');
 let maxLogLines = 100;
 let lid = 1;
 
+let checkUpdateTimer = null;
+
 let HomeComponent = Vue.component('home-component', {
   template: helper.getTpl(`${__dirname}/home`),
   data: function () {
@@ -50,6 +52,7 @@ let HomeComponent = Vue.component('home-component', {
         proxy.close();
         this.proxyStarted = false;
         this.logs = [];
+        $('.global-loading').hide();
         helper.showMsg('代理服务已停止');
         return;
       }
@@ -71,8 +74,8 @@ let HomeComponent = Vue.component('home-component', {
             }
           });
         }
-        helper.showMsg(this.proxyError);
         $('.global-loading').hide();
+        helper.showMsg(this.proxyError);
       });
     },
     logout() {
@@ -166,18 +169,29 @@ let HomeComponent = Vue.component('home-component', {
     helper.upgradeMDLElements('.home-content');
   },
   created() {
-    //检查更新
-    request({
-      url: `http://indooorsman.coding.me/fed-proxy-public/version.json?t=${Date.now()}`,
-      method: 'GET',
-      json: true
-    }, (e, r, v) => {
-      console.log(`latest version:`, v);
-      this.version.latest = v.latest;
-      if (this.version.latest.code > this.version.current.code) {
-        this.$refs.updateDialog.open();
-      }
-    });
+    const requestUpdate = () => {
+      //检查更新
+      request({
+        url: `http://indooorsman.coding.me/fed-proxy-public/version.json?t=${Date.now()}`,
+        method: 'GET',
+        json: true
+      }, (e, r, v) => {
+        console.log(`latest version:`, v);
+        this.version.latest = v.latest;
+        if (this.version.latest.code > this.version.current.code) {
+          this.$refs.updateDialog.open();
+        }
+      });
+    };
+    requestUpdate();
+    if (checkUpdateTimer) {
+      clearInterval(checkUpdateTimer);
+      checkUpdateTimer = null;
+    }
+    checkUpdateTimer = setInterval(() => {
+      // 每隔4小时检查一次更新
+      requestUpdate();
+    }, 4 * 60 * 60 * 1000);
   }
 });
 
