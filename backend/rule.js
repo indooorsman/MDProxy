@@ -195,7 +195,9 @@ module.exports.getRules = config => {
         if (fs.existsSync(localfilePath.split('#')[0])) {
           if (!!ftlInfo) {
             header['Content-Type'] = 'text/html';
-            callback(200, header, fm.render(ftlInfo.ftl, ftlInfo.data));
+            fm.render(ftlInfo.ftl, ftlInfo.data, content => {
+              callback(200, header, content);
+            });
           } else {
             callback(200, header, fs.readFileSync(localfilePath));
           }

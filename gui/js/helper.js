@@ -1,5 +1,6 @@
 let fs = require('fs');
 let path = require('path');
+const shell = require('shelljs');
 
 class Helper {
   getTpl(p) {
@@ -28,10 +29,12 @@ class Helper {
   writeProxyConfig(config) {
     let configStr = JSON.stringify(config, null, '\t');
     let configJsStr = `module.exports = ${configStr};`;
-    fs.writeFileSync(path.join(__dirname, '../../backend/config.js'), configJsStr, {encoding: 'utf8'})
+    fs.writeFileSync(path.resolve(__dirname, '../../backend/config.js'), configJsStr, {encoding: 'utf8'})
   }
   sureConfigExist() {
-    let configFile = path.join(__dirname, '../../backend/config.js');
+    let tempDir = path.resolve(__dirname, '../../.temp');
+    shell.mkdir('-p', tempDir);
+    let configFile = path.resolve(__dirname, '../../backend/config.js');
     let exist = fs.existsSync(configFile);
     if (!exist) {
       this.writeProxyConfig({
