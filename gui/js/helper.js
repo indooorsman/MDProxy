@@ -4,7 +4,7 @@ const shell = require('shelljs');
 
 class Helper {
   getTpl(p) {
-    return fs.readFileSync(`${p}.html`, {encoding: 'utf8'});
+    return fs.readFileSync(`${path.resolve(p)}.html`, {encoding: 'utf8'});
   }
   showMsg(msg) {
     let sb = document.getElementById('message');
@@ -27,14 +27,21 @@ class Helper {
     }, 0);
   }
   writeProxyConfig(config) {
+    // 写入规则配置文件
     let configStr = JSON.stringify(config, null, '\t');
     let configJsStr = `module.exports = ${configStr};`;
     fs.writeFileSync(path.resolve(__dirname, '../../backend/config.js'), configJsStr, {encoding: 'utf8'})
   }
   sureConfigExist() {
+    // 一些目录和文件的初始化工作
+
     let tempDir = path.resolve(__dirname, '../../.temp');
-    shell.mkdir('-p', tempDir);
-    let configFile = path.resolve(__dirname, '../../backend/config.js');
+    shell.mkdir('-p', tempDir); // ftl编译结果存放目录
+
+    // 删除请求log文件
+    shell.rm('-f', path.resolve(__dirname, '../../.request.log'));
+
+    let configFile = path.resolve(__dirname, '../../backend/config.js'); // 规则配置文件
     let exist = fs.existsSync(configFile);
     if (!exist) {
       this.writeProxyConfig({

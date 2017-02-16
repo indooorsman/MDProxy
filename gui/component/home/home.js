@@ -43,6 +43,7 @@ let HomeComponent = Vue.component('home-component', {
   },
   methods: {
     start: function () {
+      $('.global-loading').show();
       proxy.logListener.removeAllListeners('log');
 
       if (this.proxyStarted) {
@@ -71,6 +72,7 @@ let HomeComponent = Vue.component('home-component', {
           });
         }
         helper.showMsg(this.proxyError);
+        $('.global-loading').hide();
       });
     },
     logout() {
