@@ -26,6 +26,8 @@ gulp.task('patch', () => {
     'backend/**/*',
     'gui/*',
     'gui/**/*',
+    'libs/*',
+    'libs/**/*',
     'node_modules/*',
     'node_modules/**/*'
   ], {base: '.'})
