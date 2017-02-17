@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-const fmpp = process.env.OS.toLowerCase().indexOf('windows') == 0 ? path.resolve(__dirname,'../libs/fmpp/bin/fmpp.bat') : path.resolve(__dirname, '../libs/fmpp/bin/fmpp');
+const fmpp = (process.platform && process.platform.toLowerCase().indexOf('win') == 0) ? path.resolve(__dirname,'../libs/fmpp/bin/fmpp.bat') : path.resolve(__dirname, '../libs/fmpp/bin/fmpp');
 const tempDir = path.resolve(__dirname, '../.temp');
 const shell = require('shelljs');
 
