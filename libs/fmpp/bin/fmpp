@@ -30,7 +30,7 @@ case "`uname`" in
   CYGWIN*) cygwin=true ;;
   Darwin*) darwin=true
            if [ -z "$JAVA_HOME" ] ; then
-             JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home   
+             JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/Current
            fi
            ;;
 esac
@@ -97,9 +97,9 @@ else
   fi
 fi
 
-if [ -z "$JAVACMD" ] ; then 
-  if [ -n "$JAVA_HOME"  ] ; then
-    if [ -x "$JAVA_HOME/jre/sh/java" ] ; then 
+if [ -z "$JAVACMD" ] ; then #如果$JAVACMD为空字符串
+  if [ -n "$JAVA_HOME"  ] ; then #如果$JAVA_HOME非空
+    if [ -x "$JAVA_HOME/jre/sh/java" ] ; then #如果文件$JAVA_HOME/jre/sh/java存在且可执行
       # IBM's JDK on AIX uses strange locations for the executables
       JAVACMD="$JAVA_HOME/jre/sh/java"
     else
@@ -111,6 +111,12 @@ if [ -z "$JAVACMD" ] ; then
       JAVACMD=java
     fi
   fi
+fi
+
+#避免JAVACMD取不到
+JAVACMD="$(which java)"
+if [ -z "$JAVACMD" ] ; then
+  JAVACMD=java
 fi
  
 if [ ! -x "$JAVACMD" ] ; then
@@ -158,9 +164,10 @@ if $cygwin; then
   CYGHOME=`cygpath --path --windows "$HOME"`
 fi
 
-if type tput > /dev/null 2>&1; then
-  export FMPP_CONSOLE_COLS="`tput cols`"
-fi
+#下面的代码会导致Mac OS中报错，看起来只是设置输出的颜色，先注释掉
+#if type tput > /dev/null 2>&1; then
+#  export FMPP_CONSOLE_COLS="`tput cols`"
+#fi
 
 if [ -n "$CYGHOME" ]; then
   "$JAVACMD" -classpath "$LOCALCLASSPATH" -Dfmpp.home="${FMPP_HOME}" -Dcygwin.user.home="$CYGHOME" $FMPP_OPTS fmpp.tools.CommandLine $FMPP_ARGS "$@"

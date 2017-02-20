@@ -1,11 +1,18 @@
 const path = require('path');
 const fs = require('fs');
-const fmpp = (process.platform && process.platform.toLowerCase().indexOf('win') == 0) ? path.resolve(__dirname,'../libs/fmpp/bin/fmpp.bat') : path.resolve(__dirname, '../libs/fmpp/bin/fmpp');
-const tempDir = path.resolve(__dirname, '../.temp');
 const shell = require('shelljs');
+
+const tempDir = path.resolve(__dirname, '../.temp');
+const isWin = process.platform && process.platform.toLowerCase().indexOf('win') == 0;
+const fmpp = isWin ? path.resolve(__dirname, '../libs/fmpp/bin/fmpp.bat') : path.resolve(__dirname, '../libs/fmpp/bin/fmpp');
+
+if (!isWin) {
+  shell.chmod(777, fmpp);
+}
 
 // 测试用的
 const ftl = 'D:\\workspace\\yingke\\toc\\WEB-INF\\views\\packagetour\\customTour.ftl';
+const ftl2 = '/Users/indooorsman/workspace/projects/web/yingke/server/ykly-toc-web/src/main/webapp/WEB-INF/views/packagetour/customTour.ftl';
 
 const parseWithFMPP = (tpl, data, callback) => {
   //TODO 缓存编译结果，减少文件读写
@@ -14,17 +21,27 @@ const parseWithFMPP = (tpl, data, callback) => {
   let name = parsed.name;
   let tempFile = path.resolve(tempDir, `./${name}.html`);
   // console.log('temp file', tempFile);
-  let dataStr = JSON.stringify(data).replace(/^\{/,'').replace(/}$/,'').replace(/"/g,"'");
-  let cmd = `${fmpp} ${tpl} -S ${root} -o ${tempFile} -D "${dataStr}"`;
+  let dataStr = JSON.stringify(data).replace(/^\{/, '').replace(/}$/, '').replace(/"/g, "'");
+  let cmd = `${fmpp} ${tpl} -S ${root} -o ${tempFile} -D "${dataStr}" -E host`;
   console.log('cmd:', cmd);
   // shell.cd(dir);
-  shell.exec(cmd, function(code, stdout, stderr) {
+  shell.exec(cmd, function (code, stdout, stderr) {
     if (stderr) {
       return callback(stderr);
     }
-    const content = fs.readFileSync(tempFile, {encoding: 'utf8'});
-    shell.rm('-f', tempFile);
-    callback(content);
+    if (stdout && stdout.toLowerCase().indexOf('done') == -1) {
+      return callback(stdout);
+    }
+    setTimeout(() => {
+      const fileExist = fs.existsSync(tempFile);
+      if (!fileExist) {
+        return callback(`html file not generated yet...(${tempFile})`);
+      }
+      const content = fs.readFileSync(tempFile, {encoding: 'utf8'});
+      // shell.rm('-f', tempFile);
+      callback(content);
+    }, 100);
+
   });
 
 };
