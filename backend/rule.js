@@ -39,7 +39,7 @@ module.exports.getRules = config => {
     return false;
   };
   return {
-    summary: '盈科旅游前端代理规则',
+    summary: '代理规则',
 
     replaceRequestOption: function (req, option) {
       // 反向代理
@@ -159,7 +159,7 @@ module.exports.getRules = config => {
       if (req.replaceLocalFile) {
         let header = {
           'Cache-Control': 'no-cache',
-          'Powered-By': 'yingke-fed-proxy'
+          'Powered-By': 'mdproxy'
         };
         if (/\.gz.js/i.test(req.url)) {
           header['Content-Type'] = 'text/javascript';
