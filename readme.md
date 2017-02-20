@@ -10,7 +10,13 @@
 - 缓存请求
 - 可配置代理服务端口
 
-(TODO 添加使用截图)
+## 屏幕截图
+
+![0](assets/0.png)
+
+![1](assets/1.png)
+
+![2](assets/2.png)
 
 ## 下载（TODO 补充下载链接）
 
@@ -18,12 +24,12 @@
 - Linux 64位：[mdproxy.linux64.zip](#nogo)
 - Mac OS：[mdproxy.mac.zip](#nogo)
 
-## 安装
+## 安装（TODO 依赖上一步的下载）
 
-0. 下载对应平台的压缩包
-0. 解压到任意目录
-0. 运行
-    - Mac OS: 运行`mdproxy.app`
+1. 下载对应平台的压缩包
+1. 解压到任意目录
+1. 运行
+    - Mac OS: 运行`mdproxy.app` TODO 说明新版Mac OS需要做的额外操作`sudo find . -iname '*.app' -print0 | xargs -0 xattr -d com.apple.quarantine`
     - Windows: 运行`mdproxy.exe`
     - Linux：（TODO）
 
@@ -33,7 +39,19 @@
     
 ## 开发
     
-    //TODO
+1. 下载对应平台的 [NW.js SDK](https://nwjs.io/downloads/)
+1. 克隆源码，安装依赖：
+   ```bash
+   git clone https://github.com/indooorsman/MDProxy.git
+   cd MDProxy
+   npm install
+   ```
+1. 启动： 
+   ```bash
+   npm start
+   # 之后请按提示输入你下载并解压后的NW.js SDK目录中nwjs可执行文件的绝对路径
+   ```
+1. 如何调试请参考NW.js相关文档：<http://docs.nwjs.io/en/latest/For%20Users/Debugging%20with%20DevTools/>   
 
 ## Chrome插件
 

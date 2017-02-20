@@ -10,11 +10,13 @@ let router = new VueRouter({
 
 let win = nw.Window.get();
 
+const packageInfo = require('../package.json');
+
 let app = new Vue({
   el: '#app',
   router: router,
   data: {
-    title: '盈科旅游前端代理' + require('../package.json').version,
+    title: `MDProxy ${packageInfo.version}(${packageInfo.versionCode})`,
     proxyStarted: false,
     proxyError: null
   },
