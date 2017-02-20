@@ -3,12 +3,12 @@
 ## 概览
 
 采用[NW.js](http://nwjs.io)+[Vue.js](http://vuejs.org)+[Material Design lite](https://getmdl.io/)开发，功能：
-- 跨平台桌面客户端（Windows 64位/Linux 64位/Mac OS）
+- 跨平台桌面客户端（Windows 64位/Linux 64位/Mac OS）(TODO: 打包Linux版本)
 - 指定文件和目录代理
 - 反向代理
-- 自动更新
-- 缓存请求
-- 可配置代理服务端口
+- 缓存请求 (TODO: 此功能尚未完成)
+- 配置代理服务端口
+- 自身的自动更新
 
 ## 屏幕截图
 
