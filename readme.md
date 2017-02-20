@@ -40,17 +40,22 @@
 ## 开发
     
 1. 下载对应平台的 [NW.js SDK](https://nwjs.io/downloads/)
+
 1. 克隆源码，安装依赖：
+
    ```bash
    git clone https://github.com/indooorsman/MDProxy.git
    cd MDProxy
    npm install
    ```
-1. 启动： 
+
+1. 启动：
+
    ```bash
    npm start
    # 之后请按提示输入你下载并解压后的NW.js SDK目录中nwjs可执行文件的绝对路径
    ```
+
 1. 如何调试请参考NW.js相关文档：<http://docs.nwjs.io/en/latest/For%20Users/Debugging%20with%20DevTools/>   
 
 ## Chrome插件
