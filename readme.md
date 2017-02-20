@@ -5,6 +5,7 @@
 采用[NW.js](http://nwjs.io)+[Vue.js](http://vuejs.org)+[Material Design lite](https://getmdl.io/)开发，功能：
 - 跨平台桌面客户端（Windows 64位/Linux 64位/Mac OS）(TODO: 打包Linux版本)
 - 指定文件和目录代理
+- 支持模拟后端freemarker模板(*.ftl)渲染(需安装[JDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html))
 - 反向代理
 - 缓存请求 (TODO: 此功能尚未完成)
 - https代理 (TODO: 此功能尚未完成)
