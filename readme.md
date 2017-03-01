@@ -38,7 +38,12 @@
 
 ## 使用
 
-    //TODO
+在macOS Sierra中需要一些额外的操作：
+```bash
+cd /path/of/mdproxy.app
+sudo find . -iname '*.app' -print0 | xargs -0 xattr -d com.apple.quarantine 
+```
+参考 <https://forum.keyboardmaestro.com/t/mac-sierra-problems/5104>
     
 ## 开发
     
