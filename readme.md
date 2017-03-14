@@ -23,16 +23,16 @@
 
 ## 下载（TODO 补充下载链接）
 
-- Windows 64位：[mdproxy.win64.zip](#nogo)
+- Windows 64位：[mdproxy.win64.zip](https://coding.net/api/user/indooorsman/project/mdproxy-releases/git/releases/attachments/download/12)
 - Linux 64位：[mdproxy.linux64.zip](#nogo)
-- Mac OS：[mdproxy.mac.zip](#nogo)
+- Mac OS：[mdproxy.osx.zip](https://coding.net/api/user/indooorsman/project/mdproxy-releases/git/releases/attachments/download/15)
 
 ## 安装（TODO 依赖上一步的下载）
 
 1. 下载对应平台的压缩包
 1. 解压到任意目录
 1. 运行
-    - Mac OS: 运行`mdproxy.app` TODO 说明新版Mac OS需要做的额外操作`sudo find . -iname '*.app' -print0 | xargs -0 xattr -d com.apple.quarantine`
+    - Mac OS: 运行`mdproxy.app` 
     - Windows: 运行`mdproxy.exe`
     - Linux：（TODO）
 
