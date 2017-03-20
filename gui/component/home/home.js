@@ -37,7 +37,7 @@ let HomeComponent = Vue.component('home-component', {
       portDialog: null,
       version: {
         current: {code: packageInfo.versionCode, name: packageInfo.version},
-        latest: {code: 0, name: '', changelog: ''}
+        latest: {code: 0, name: '', changelog: '', updateAt: 0, downloadUrl: ''}
       },
       updating: false,
       updateBtnText: '立即更新'
@@ -145,6 +145,9 @@ let HomeComponent = Vue.component('home-component', {
       this.updating = true;
       this.updateBtnText = '正在更新...';
       let patchUrl = `http://indooorsman.coding.me/fed-proxy-public/patch-${this.version.latest.name}-${this.version.latest.code}.zip`;
+      if (!!this.version.latest.downloadUrl) {
+        patchUrl = this.version.latest.downloadUrl;
+      }
       let localPath = path.resolve(__dirname, '../../../patch.zip');
       let extractPath = path.resolve(__dirname, '../../../');
       //let patchUrl = 'https://indooorsman.coding.me/fed-proxy-public/version.json';
