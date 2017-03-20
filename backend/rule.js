@@ -199,6 +199,9 @@ module.exports.getRules = config => {
               callback(200, header, content);
             });
           } else {
+            if (/\.json$/.test(localfilePath)) {
+              header['Content-Type'] = 'application/json';
+            }
             callback(200, header, fs.readFileSync(localfilePath));
           }
         } else {
