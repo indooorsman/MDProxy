@@ -21,29 +21,36 @@
 
 ![2](assets/2.png)
 
-## 下载（TODO 补充下载链接）
+## 下载
 
 - Windows 64位：[mdproxy.win64.zip](https://coding.net/api/user/indooorsman/project/mdproxy-releases/git/releases/attachments/download/12)
 - Linux 64位：[mdproxy.linux64.zip](#nogo)
 - Mac OS：[mdproxy.osx.zip](https://coding.net/api/user/indooorsman/project/mdproxy-releases/git/releases/attachments/download/15)
 
-## 安装（TODO 依赖上一步的下载）
+## 安装
 
 1. 下载对应平台的压缩包
 1. 解压到任意目录
 1. 运行
-    - Mac OS: 运行`mdproxy.app` 
+    - Mac OS:
+        
+        在macOS Sierra中需要一些额外的操作：
+        
+        ```bash
+        cd /parentPath/of/mdproxy.app
+        sudo find . -iname '*.app' -print0 | xargs -0 xattr -d com.apple.quarantine 
+        ```
+        
+        运行`mdproxy.app` 
+    
     - Windows: 运行`mdproxy.exe`
     - Linux：（TODO）
 
 ## 使用
 
-在macOS Sierra中需要一些额外的操作：
 ```bash
-cd /path/of/mdproxy.app
-sudo find . -iname '*.app' -print0 | xargs -0 xattr -d com.apple.quarantine 
+#TODO
 ```
-参考 <https://forum.keyboardmaestro.com/t/mac-sierra-problems/5104>
     
 ## 开发
     
@@ -71,5 +78,3 @@ sudo find . -iname '*.app' -print0 | xargs -0 xattr -d com.apple.quarantine
 配合SwitchyOmega使用，可以方便切换环境
 
 [下载SwitchyOmega](https://github.com/FelisCatus/SwitchyOmega/releases)
-
-## test
