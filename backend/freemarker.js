@@ -3,7 +3,7 @@ const fs = require('fs');
 const shell = require('shelljs');
 
 const tempDir = path.resolve(__dirname, '../.temp');
-const isWin = process.platform && process.platform.toLowerCase().indexOf('win') == 0;
+const isWin = process.platform && process.platform.toLowerCase().indexOf('win') === 0;
 const fmpp = isWin ? path.resolve(__dirname, '../libs/fmpp/bin/fmpp.bat') : path.resolve(__dirname, '../libs/fmpp/bin/fmpp');
 
 if (!isWin) {

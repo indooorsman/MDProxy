@@ -18,7 +18,7 @@ require('../matches-editor/matches-editor');
 require('../log/log');
 require('../dialog');
 
-let maxLogLines = 100;
+let maxLogLines = 50;
 let lid = 1;
 
 let checkUpdateTimer = null;
@@ -32,6 +32,7 @@ let HomeComponent = Vue.component('home-component', {
       proxyStarted: false,
       proxyError: null,
       logs: [],
+      logsMaxLength: maxLogLines,
       proxyDetail: {},
       portToSave: null,
       portDialog: null,
@@ -68,10 +69,10 @@ let HomeComponent = Vue.component('home-component', {
             data.expand = false;
             data.id = lid;
             lid++;
-            this.logs.push(data);
             if (this.logs.length > maxLogLines) {
               this.logs.shift();
             }
+            this.logs.push(data);
           });
         }
         $('.global-loading').hide();
@@ -91,7 +92,7 @@ let HomeComponent = Vue.component('home-component', {
       let input = $('#directoryChooser');
       input.unbind('change');
       input.bind('change', function (evt) {
-        if (this.value.trim() == '') {
+        if (this.value.trim() === '') {
           return;
         }
         self.proxyConfig[type] = path.resolve(this.value);
@@ -114,7 +115,7 @@ let HomeComponent = Vue.component('home-component', {
         return;
       }
       let input = document.getElementById('portinput');
-      if (input.validationMessage && input.validationMessage != '') {
+      if (input.validationMessage && input.validationMessage !== '') {
         return helper.showMsg(input.validationMessage);
       }
       this.proxyConfig.port = this.portToSave - 0;
@@ -136,7 +137,7 @@ let HomeComponent = Vue.component('home-component', {
       helper.writeProxyConfig(this.proxyConfig);
     },
     update() {
-      if (this.updating == 'done') {
+      if (this.updating === 'done') {
         return this.$refs.updateDialog.close();
       }
       if (this.updating) {

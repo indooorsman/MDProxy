@@ -164,7 +164,7 @@
 
   </section>
   <section class="section-log" v-show="proxyStarted">
-    <log-component :logs="logs" :proxy="proxyDetail"></log-component>
+    <log-component :logs="logs" :lines="logsMaxLength" :proxy="proxyDetail"></log-component>
   </section>
 
 

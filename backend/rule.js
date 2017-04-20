@@ -164,9 +164,9 @@ module.exports.getRules = config => {
         if (/\.gz.js/i.test(req.url)) {
           header['Content-Type'] = 'text/javascript';
           header['Content-Encoding'] = 'gzip';
-        } else if (/\.css$/i.test(req.url)) {
-          header['Content-Type'] = 'text/css';
-        } else if (/\.js$/i.test(req.url)) {
+        } else if (/\.css/i.test(req.url)) {
+          header['Content-Type'] = 'text/css; charset=UTF-8';
+        } else if (/\.js/i.test(req.url)) {
           header['Content-Type'] = 'text/javascript';
         }
 

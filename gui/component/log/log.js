@@ -2,7 +2,7 @@ var helper = require('../../js/helper.js');
 
 let LogComponent = Vue.component('log-component', {
   template: helper.getTpl(`${__dirname}/log`),
-  props: ['logs', 'proxy'],
+  props: ['logs', 'proxy', 'lines'],
   data: function () {
     return {
       autoscroll: true
@@ -15,16 +15,18 @@ let LogComponent = Vue.component('log-component', {
   },
   mounted() {
     let logsContainer = document.querySelector('.logs');
-    let unwatch = this.$watch('logs', (n, o) => {
-      logsContainer.scrollTop = n.length * 888;
-    });
+    let scrollInterval = setInterval(() => {
+      logsContainer.scrollTop = this.lines * 250
+    }, 1000);
     this.$watch('autoscroll', (n, o) => {
+      if (scrollInterval) {
+        clearInterval(scrollInterval);
+        scrollInterval = null;
+      }
       if (n) {
-        unwatch = this.$watch('logs', (n, o) => {
-          logsContainer.scrollTop = n.length * 888;
-        })
-      } else if (!!unwatch) {
-        unwatch();
+        scrollInterval = setInterval(() => {
+          logsContainer.scrollTop = this.lines * 250
+        }, 1000);
       }
     });
 
