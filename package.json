@@ -1,7 +1,7 @@
 {
   "name": "mdproxy",
-  "version": "2.2.5",
-  "versionCode": 35,
+  "version": "2.2.6",
+  "versionCode": 36,
   "description": "A cross-platform proxy gui client for front-end development. Material designed.",
   "main": "gui/index.html",
   "chromium-args": "--mixed-context",
