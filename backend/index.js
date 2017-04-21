@@ -8,7 +8,7 @@ let options = {
   // port: port || 8004,
   hostname: "0.0.0.0",
   // rule: rule,
-  dbFile: '.request.log',  // optional, save request data to a specified file, will use in-memory db if not specified
+  dbFile: '__black_hole__',  // optional, save request data to a specified file, will use in-memory db if not specified
   webPort: 8002,  // optional, port for web interface
   socketPort: 8003,  // optional, internal port for web socket, replace this when it is conflict with your own service
   // throttle      : 10,    // optional, speed limit in kb/s
