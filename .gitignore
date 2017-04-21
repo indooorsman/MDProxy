@@ -6,5 +6,5 @@ backend/config.js
 .nwjs.config.json
 nwjs-sdk
 app.nw
-#patch*.zip
+patch*.zip
 .temp
