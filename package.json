@@ -1,7 +1,7 @@
 {
   "name": "mdproxy",
-  "version": "2.2.6",
-  "versionCode": 36,
+  "version": "2.2.7",
+  "versionCode": 37,
   "description": "A cross-platform proxy gui client for front-end development. Material designed.",
   "main": "gui/index.html",
   "chromium-args": "--mixed-context",
@@ -24,6 +24,7 @@
     "gulp": "^3.9.1",
     "gulp-zip": "^3.2.0",
     "ip": "^1.1.3",
+    "mime": "^1.3.4",
     "request": "^2.79.0",
     "request-progress": "^3.0.0",
     "shelljs": "^0.7.6",

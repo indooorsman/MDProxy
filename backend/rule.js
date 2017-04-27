@@ -4,6 +4,8 @@ const urlParser = require('url');
 const EventEmitter = require('events');
 const logListener = new EventEmitter();
 const fm = require('./freemarker.js');
+const mime = require('mime');
+const url = require('url');
 
 module.exports.logListener = logListener;
 
@@ -126,7 +128,7 @@ module.exports.getRules = config => {
         }
         let fixed = k.replace(/\/$/, '');
         if (req.url.startsWith(fixed)
-          && /\.(js|css|ttf|eot|woff|woff2|bmp|jpg|png|gif|htm|html|json|map)(\?.*)?$/i.test(req.url)) {
+          && /\.(js|css|ttf|eot|woff|woff2|bmp|jpg|png|gif|htm|html|json|map|svg)(\?.*)?$/i.test(req.url)) {
           req.replaceLocalFile = true;
           let urlPath = req.url.replace(fixed + '/', '').replace(/\?.*$/, '');
           // console.log(config.dirMatches[k], urlPath);
@@ -162,12 +164,11 @@ module.exports.getRules = config => {
           'Powered-By': 'mdproxy'
         };
         if (/\.gz.js/i.test(req.url)) {
-          header['Content-Type'] = 'text/javascript';
+          header['Content-Type'] = 'text/javascript; charset=UTF-8';
           header['Content-Encoding'] = 'gzip';
-        } else if (/\.css/i.test(req.url)) {
-          header['Content-Type'] = 'text/css; charset=UTF-8';
-        } else if (/\.js/i.test(req.url)) {
-          header['Content-Type'] = 'text/javascript';
+        } else {
+          let pathname = url.parse(req.url).pathname;
+          header['Content-Type'] = `${mime.lookup(pathname)}; charset=UTF-8`;
         }
 
         let localfilePath = null;
@@ -200,7 +201,7 @@ module.exports.getRules = config => {
             });
           } else {
             if (/\.json$/.test(localfilePath)) {
-              header['Content-Type'] = 'application/json';
+              header['Content-Type'] = 'application/json; charset=UTF-8';
             }
             callback(200, header, fs.readFileSync(localfilePath));
           }
