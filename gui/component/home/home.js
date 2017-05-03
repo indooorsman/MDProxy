@@ -180,6 +180,9 @@ let HomeComponent = Vue.component('home-component', {
         method: 'GET',
         json: true
       }, (e, r, v) => {
+        if (e || !r || !v || typeof v !== 'object') {
+          return;
+        }
         console.log(`latest version:`, v);
         this.version.latest = v.latest;
         if (this.version.latest.code > this.version.current.code) {

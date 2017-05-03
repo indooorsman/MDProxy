@@ -163,13 +163,6 @@ module.exports.getRules = config => {
           'Cache-Control': 'no-cache',
           'Powered-By': 'mdproxy'
         };
-        if (/\.gz.js/i.test(req.url)) {
-          header['Content-Type'] = 'text/javascript; charset=UTF-8';
-          header['Content-Encoding'] = 'gzip';
-        } else {
-          let pathname = url.parse(req.url).pathname;
-          header['Content-Type'] = `${mime.lookup(pathname)}; charset=UTF-8`;
-        }
 
         let localfilePath = null;
         let ftlInfo = null;
@@ -200,9 +193,15 @@ module.exports.getRules = config => {
               callback(200, header, content);
             });
           } else {
-            if (/\.json$/.test(localfilePath)) {
-              header['Content-Type'] = 'application/json; charset=UTF-8';
+            let ext = path.parse(localfilePath).ext.trim().toLowerCase();
+            let type = 'text/plain';
+            if (ext !== '' && ext !== '.') {
+              type = mime.lookup(ext);
             }
+            if (/\.(js|css|html|htm|json|txt)/.test(ext)) {
+              type += '; charset=UTF-8'
+            }
+            header['Content-Type'] = type;
             callback(200, header, fs.readFileSync(localfilePath));
           }
         } else {
