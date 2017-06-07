@@ -128,7 +128,7 @@ module.exports.getRules = config => {
         }
         let fixed = k.replace(/\/$/, '');
         if (req.url.startsWith(fixed)
-          && /\.(js|css|ttf|eot|woff|woff2|bmp|jpg|png|gif|htm|html|json|map|svg)(\?.*)?$/i.test(req.url)) {
+          && /\.(js|css|ttf|eot|woff|woff2|bmp|jpg|png|gif|htm|html|json|map|svg|ico)(\?.*)?$/i.test(req.url)) {
           req.replaceLocalFile = true;
           let urlPath = req.url.replace(fixed + '/', '').replace(/\?.*$/, '');
           // console.log(config.dirMatches[k], urlPath);
@@ -161,7 +161,8 @@ module.exports.getRules = config => {
       if (req.replaceLocalFile) {
         let header = {
           'Cache-Control': 'no-cache',
-          'Powered-By': 'mdproxy'
+          'Powered-By': 'mdproxy',
+          'Access-Control-Allow-Origin': '*'
         };
 
         let localfilePath = null;
